@@ -13,14 +13,14 @@
 ;; Shape parameters ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(def nrows 4)
-(def ncols 5)
+(def nrows 1)
+(def ncols 1)
 
-(def α (/ π 12))                        ; curvature of the columns
-(def β (/ π 36))                        ; curvature of the rows
+(def α (/ π 24))                        ; curvature of the columns
+(def β (/ π 72))                        ; curvature of the rows
 (def centerrow (- nrows 3))             ; controls front-back tilt
-(def centercol 4)                       ; controls left-right tilt / tenting (higher number is more tenting)
-(def tenting-angle (/ π 4))            ; or, change this for more precise tenting control
+(def centercol 1)                       ; controls left-right tilt / tenting (higher number is more tenting)
+(def tenting-angle (/ π 17))            ; or, change this for more precise tenting control
 (def column-style
   (if (> nrows 5) :orthographic :standard))  ; options include :standard, :orthographic, and :fixed
 ; (def column-style :fixed)
@@ -700,22 +700,22 @@
 (def model-right (difference
                    (union
                     key-holes
-                    connectors
+;                    connectors
                     thumb
                     thumb-connectors
-                    (difference (union case-walls
-                                       screw-insert-outers
-                                       teensy-holder)
-                                       ; usb-holder)
-                                ; rj9-space
-                                ; usb-holder-hole
-                                screw-insert-holes)
+;                    (difference (union case-walls
+;                                       screw-insert-outers
+;                                       teensy-holder)
+;                                       ; usb-holder)
+;                                ; rj9-space
+;                                ; usb-holder-hole
+;                                screw-insert-holes)
                     ; rj9-holder
-                    wire-posts
+;                    wire-posts
                     ; thumbcaps
                     ; caps
                     )
-                   (translate [0 0 -20] (cube 350 350 40))
+                   (translate [-25 -50 -20] (cube 950 350 45))
                   ))
 
 (spit "things/right.scad"
