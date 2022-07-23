@@ -73,7 +73,7 @@
 (def mount-height (+ keyswitch-height 3))
 
 (def nut-width 4.8)
-(def nut-height 1.8)
+(def nut-height 1.65)
 (def nut-thickness (+ (- keyswitch-width 14) 0.2))
 
 (def single-plate

@@ -73,7 +73,7 @@
 (def mount-height (+ keyswitch-height 3))
 
 (def nut-width 4.8)
-(def nut-height 1.8)
+(def nut-height 1.65)
 (def nut-thickness (+ (- keyswitch-width 14) 0.2))
 
 (def single-plate
@@ -86,12 +86,7 @@
                                    0
                                    (/ plate-thickness 2)]))
         side-nub (->> (binding [*fn* 30] (cube nut-thickness nut-width nut-height))
-;                      (rotate (/ π 2) [1 0 0])
                       (translate [(+ (/ keyswitch-width 2)) 0 (- plate-thickness (- (/ nut-height 2) 0.4))])
-;                      (hull (->> (cube 1.5 2.75 plate-thickness)
-;                                 (translate [(+ (/ 1.5 2) (/ keyswitch-width 2))
-;                                             0
-;                                             (/ plate-thickness 2)])))
                       )
         plate-half (union top-wall left-wall (with-fn 100 side-nub))]
     (union plate-half
