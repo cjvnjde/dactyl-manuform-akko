@@ -13,14 +13,14 @@
 ;; Shape parameters ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(def nrows 4)
+(def nrows 5)
 (def ncols 5)
 
 (def α (/ π 12))                        ; curvature of the columns
 (def β (/ π 36))                        ; curvature of the rows
 (def centerrow (- nrows 3))             ; controls front-back tilt
-(def centercol 4)                       ; controls left-right tilt / tenting (higher number is more tenting)
-(def tenting-angle (/ π 4))            ; or, change this for more precise tenting control
+(def centercol 3)                       ; controls left-right tilt / tenting (higher number is more tenting)
+(def tenting-angle (/ π 12))            ; or, change this for more precise tenting control
 (def column-style
   (if (> nrows 5) :orthographic :standard))  ; options include :standard, :orthographic, and :fixed
 ; (def column-style :fixed)
@@ -30,15 +30,15 @@
   (>= column 4) [0 -12 5.64]            ; original [0 -5.8 5.64]
   :else [0 0 0]))
 
-(def thumb-offsets [6 -3 -6])
+(def thumb-offsets [6 -3 7])
 
-(def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+(def keyboard-z-offset 9)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
 (def extra-width 2.5)                   ; extra space between the base of keys; original= 2
 (def extra-height 1.0)                  ; original= 0.5
 
 (def wall-z-offset -15)                 ; length of the first downward-sloping part of the wall (negative)
-(def wall-xy-offset 8)                  ; offset in the x and/or y direction for the first downward-sloping part of the wall (negative)
+(def wall-xy-offset 5)                  ; offset in the x and/or y direction for the first downward-sloping part of the wall (negative)
 (def wall-thickness 2)                  ; wall thickness parameter; originally 5
 
 ;; Settings for column-style == :fixed
@@ -63,12 +63,12 @@
 ;; Switch Hole ;;
 ;;;;;;;;;;;;;;;;;
 
-(def keyswitch-height 14.4) ;; Was 14.1, then 14.25
+(def keyswitch-height 14.1)
 (def keyswitch-width 14.4)
 
 (def sa-profile-key-height 12.7)
 
-(def plate-thickness 4)
+(def plate-thickness 5)
 (def mount-width (+ keyswitch-width 3))
 (def mount-height (+ keyswitch-height 3))
 
@@ -602,7 +602,7 @@
     (->> (apply cube usb-holder-size)
          (translate [(first usb-holder-position) (second usb-holder-position) (/ (+ (last usb-holder-size) usb-holder-thickness) 2)])))
 
-(def teensy-width 20)
+(def teensy-width 18.2)
 (def teensy-height 12)
 (def teensy-length 33)
 (def teensy2-length 53)
@@ -624,14 +624,11 @@
                (translate [1.5 teensy-holder-offset 0]))
           (->> (cube teensy-pcb-thickness teensy-holder-length 3)
                (translate [(+ (/ teensy-pcb-thickness 2) 3) teensy-holder-offset (- -1.5 (/ teensy-width 2))]))
-          (->> (cube 4 teensy-holder-length 4)
-               (translate [(+ teensy-pcb-thickness 5) teensy-holder-offset (-  -1 (/ teensy-width 2))]))
           (->> (cube teensy-pcb-thickness teensy-holder-top-length 3)
                (translate [(+ (/ teensy-pcb-thickness 2) 3) teensy-holder-top-offset (+ 1.5 (/ teensy-width 2))]))
-          (->> (cube 4 teensy-holder-top-length 4)
-               (translate [(+ teensy-pcb-thickness 5) teensy-holder-top-offset (+ 1 (/ teensy-width 2))])))
+)
         (translate [(- teensy-holder-width) 0 0])
-        (translate [4 0 0])
+        (translate [-1.4 0 0])
         (translate [(first teensy-top-xy)
                     (- (second teensy-top-xy) 1)
                     (/ (+ 6 teensy-width) 2)])
@@ -657,8 +654,8 @@
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
   (union (screw-insert 0 0         bottom-radius top-radius height)
-         (screw-insert 0 (- lastrow 0.6)   bottom-radius top-radius height)
-         (screw-insert 2 (+ lastrow 0.35)  bottom-radius top-radius height)
+         (screw-insert 0 lastrow   bottom-radius top-radius height)
+         (screw-insert 2 (+ lastrow 0.3)  bottom-radius top-radius height)
          (screw-insert 3 0         bottom-radius top-radius height)
          (screw-insert lastcol 1   bottom-radius top-radius height)
          ))
@@ -701,12 +698,12 @@
                     (difference (union case-walls
                                        screw-insert-outers
                                        teensy-holder)
-                                       ; usb-holder)
+                                        ;usb-holder)
                                 ; rj9-space
                                 ; usb-holder-hole
                                 screw-insert-holes)
                     ; rj9-holder
-                    wire-posts
+                    ; wire-posts
                     ; thumbcaps
                     ; caps
                     )
